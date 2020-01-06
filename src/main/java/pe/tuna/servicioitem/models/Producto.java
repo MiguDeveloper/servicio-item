@@ -8,6 +8,7 @@ public class Producto  implements Serializable {
     private String nombre;
     private double precio;
     private Date createAt;
+    private Integer port;
 
     public Long getId() {
         return id;
@@ -39,5 +40,13 @@ public class Producto  implements Serializable {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
     }
 }
