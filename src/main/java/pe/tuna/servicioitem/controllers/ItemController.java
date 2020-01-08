@@ -10,9 +10,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pe.tuna.servicioitem.models.Item;
 import pe.tuna.servicioitem.models.Producto;
 import pe.tuna.servicioitem.models.services.IItemService;
@@ -76,11 +74,29 @@ public class ItemController {
         logger.info("TEXTO: " + json.get("texto"));
         logger.info("PUERTO: " + json.get("puerto"));
 
-        if (environment.getActiveProfiles().length > 0 && environment.getActiveProfiles()[0].equals("dev")){
+        if (environment.getActiveProfiles().length > 0 && environment.getActiveProfiles()[0].equals("dev")) {
             json.put("autor.nombre", environment.getProperty("configuracion.autor.nombre"));
             json.put("autor.email", environment.getProperty("configuracion.autor.email"));
         }
 
         return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
+    }
+
+    @PostMapping("/crear")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Producto crear(@RequestBody Producto producto) {
+        return itemService.save(producto);
+    }
+
+    @PutMapping("editar/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Producto editar(@PathVariable Long id, @RequestBody Producto producto) {
+        return itemService.update(producto, id);
+    }
+
+    @DeleteMapping("/eliminar/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        itemService.delete(id);
     }
 }

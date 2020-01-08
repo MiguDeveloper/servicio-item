@@ -1,6 +1,9 @@
 package pe.tuna.servicioitem.models.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pe.tuna.servicioitem.models.Item;
@@ -35,5 +38,35 @@ public class ItemServiceImpl implements IItemService {
 
         Producto producto = clienteRest.getForObject("http://servicio-productos/listar/{id}", Producto.class, pathVariables);
         return new Item(producto, cantidad);
+    }
+
+    @Override
+    public Producto save(Producto producto) {
+        HttpEntity<Producto> body = new HttpEntity<Producto>(producto);
+
+        ResponseEntity<Producto> response = clienteRest.exchange("http://servicio-productos/crear", HttpMethod.POST, body, Producto.class);
+        Producto productoResponse = response.getBody();
+        return productoResponse;
+    }
+
+    @Override
+    public Producto update(Producto producto, Long id) {
+        Map<String, String> pathVariables = new HashMap<String, String>();
+        pathVariables.put("id", id.toString());
+
+        HttpEntity<Producto> body = new HttpEntity<Producto>(producto);
+        ResponseEntity<Producto> response = clienteRest.exchange("http://servicio-productos/editar/{id}",
+                HttpMethod.PUT, body, Producto.class, pathVariables);
+
+        Producto productoResponse = response.getBody();
+        return productoResponse;
+    }
+
+    @Override
+    public void delete(Long id) {
+        Map<String, String> pathVariables = new HashMap<String, String>();
+        pathVariables.put("id", id.toString());
+
+        clienteRest.delete("http://servicio-productos/eliminar/{id}", pathVariables);
     }
 }

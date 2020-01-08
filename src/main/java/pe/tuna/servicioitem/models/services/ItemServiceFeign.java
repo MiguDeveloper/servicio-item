@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import pe.tuna.servicioitem.clientes.IProductosClienteRest;
 import pe.tuna.servicioitem.models.Item;
+import pe.tuna.servicioitem.models.Producto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,5 +25,21 @@ public class ItemServiceFeign implements IItemService {
     @Override
     public Item findById(Long id, int cantidad) {
         return new Item(clienteFeign.detalle(id), cantidad);
+    }
+
+    @Override
+    public Producto save(Producto producto) {
+        Producto prod = clienteFeign.crear(producto);
+        return prod;
+    }
+
+    @Override
+    public Producto update(Producto producto, Long id) {
+        return clienteFeign.editar(producto, id);
+    }
+
+    @Override
+    public void delete(Long id) {
+        clienteFeign.eliminar(id);
     }
 }
