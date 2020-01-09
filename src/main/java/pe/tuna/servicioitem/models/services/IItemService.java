@@ -1,7 +1,7 @@
 package pe.tuna.servicioitem.models.services;
 
+import pe.tuna.serviciocommons.models.entity.Producto;
 import pe.tuna.servicioitem.models.Item;
-import pe.tuna.servicioitem.models.Producto;
 
 import java.util.List;
 

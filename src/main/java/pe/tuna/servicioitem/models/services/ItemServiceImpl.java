@@ -6,8 +6,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import pe.tuna.serviciocommons.models.entity.Producto;
 import pe.tuna.servicioitem.models.Item;
-import pe.tuna.servicioitem.models.Producto;
 
 import java.util.Arrays;
 import java.util.HashMap;

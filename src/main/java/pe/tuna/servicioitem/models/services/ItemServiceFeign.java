@@ -3,9 +3,9 @@ package pe.tuna.servicioitem.models.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import pe.tuna.serviciocommons.models.entity.Producto;
 import pe.tuna.servicioitem.clientes.IProductosClienteRest;
 import pe.tuna.servicioitem.models.Item;
-import pe.tuna.servicioitem.models.Producto;
 
 import java.util.List;
 import java.util.stream.Collectors;

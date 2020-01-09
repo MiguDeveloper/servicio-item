@@ -1,5 +1,7 @@
 package pe.tuna.servicioitem.models;
 
+import pe.tuna.serviciocommons.models.entity.Producto;
+
 public class Item {
     private Producto producto;
     private int cantidad;
